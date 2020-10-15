@@ -9,6 +9,9 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {connect} from 'react-redux';
 import {incrementCounter, decrementCounter} from '../../redux/actions/counter'
 
+import {selectUserName, selectUserAge, selectUserNameAndAge} from "../../redux/selectors/counter";
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,7 +44,11 @@ function Counter(props) {
         <Card className={classes.root}>
             <CardContent>
                 <Typography variant="h5" component="h2">
-                    Counter: {props.counter}
+                    Counter: {props.counter}<br/>
+                    User Name: {props.name}<br/>
+                    User Age: {props.age}<br/>
+                    <br/>
+                    Hello {props.nameAge}!<br/>
                 </Typography>
             </CardContent>
             <CardActions>
@@ -64,7 +71,10 @@ function Counter(props) {
 // counter - props(которое передаваться будет в компонент Counter), connect() ->[props]-> (Counter)
 // state.counter - значение props
 const mapStateToProps = (state) => ({
-    counter: state.counter
+    counter: state.counter,
+    name: selectUserName(state),
+    age: selectUserAge(state),
+    nameAge: selectUserNameAndAge(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
